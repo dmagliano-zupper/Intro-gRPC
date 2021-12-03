@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.dev.magliano";
+option java_outer_classname = "Protobuf";
+option objc_class_prefix = "HLW";
+
+package br.dev.magliano;
+
+import "google/protobuf/timestamp.proto";
+
+service VeiculoService {
+
+  rpc cadastrar(NovoVeiculoRequest) returns (VeiculoReponse) {}
+
+}
+
+enum TipoCombustivel {
+  GASOLINA = 0;
+  ALCOOL = 1;
+  FLEX = 2;
+}
+
+message NovoVeiculoRequest {
+  string modelo = 1;
+  string placa = 2;
+  int32 ano = 3;
+
+  message Proprietario{
+    string nomeProprietario = 1;
+    string cpfProprietario = 2;
+  }
+
+  repeated Proprietario proprietario = 4;
+  TipoCombustivel tipoCombustivel =5;
+}
+
+message VeiculoReponse {
+  int32 id = 1;
+  google.protobuf.Timestamp dataCriacao = 2;
+}
